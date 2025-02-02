@@ -1,41 +1,92 @@
 # Docker Container
 
+## Principais Comandos para manipulação de containers com DOCKER:
+
+[****1.Status do container****](#cmd-docker-1)
+1.1 [**`docker ps`**](#cmd-docker-1.1)
+1.2 [**`docker ps -a`**](#cmd-docker-1.2)
+
+[****2.Criar e iniciar o container****](#cmd-docker-2)
+2.1 [**`docker run -it appweblistdocker:v1.0.0 sh`**](#cmd-docker-2.1)
+2.2 [**`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.2)
+2.3 [**`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.3)
+2.4 [**`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**](#cmd-docker-2.4)
+
+[****3.Acessar logs do container****](#cmd-docker-3)
+3.1 [**`docker logs -f <container_id|container_name>`**](#cmd-docker-3.1)
+
+[****4.Acessar o terminal do container****](#cmd-docker-4)
+4.1 [**`docker exec <container_id|container_name> cmd`**](#cmd-docker-4.1)
+4.2 [**`docker exec -it <container_id|container_name> sh`**](#cmd-docker-4.2)
+
+[****5.Iniciar e parar containers existentes****](#cmd-docker-5)
+5.1 [**`docker start <container_id|container_name>`**](#cmd-docker-5.1)
+5.2 [**`docker stop <container_id|container_name>`**](#cmd-docker-5.2)
+
+[****6.Remover containers****](#cmd-docker-6)
+6.1 [**`docker rm <container_id|container_name>`**](#cmd-docker-6.1)
+6.2 [**`docker rm -f <container_id|container_name>`**](#cmd-docker-6.2)
+
+[****7.Cópia de arquivos entre host e container****](#cmd-docker-7)
+7.1 [**`docker cp <source_path> <container_id|container_name>:<destination_path>`**](#cmd-docker-7.1)
+
+[****8.Operações com Volume "host/container"****](#cmd-docker-8)
+8.1 [**`docker volume create <nome_do_volume>`**](#cmd-docker-8.1)
+8.2 [**`Criando um volume que utilize um caminho específico no host`**](#cmd-docker-8.2)
+8.3 [**`docker volume ls`**](#cmd-docker-8.3)
+8.4 [**`docker volume inspect <nome_do_volume>`**](#cmd-docker-8.4)
+8.5 [**`Mapeamento de volume entre host e container`**](#cmd-docker-8.5)
+
+
 ## Descrição dos principais Comandos para manipulação de containers com DOCKER
 
-1. **`docker ps`**  
+<a id='cmd-docker-1'></a>
+****1.Status do container****
+
+<a id='cmd-docker-1.1'></a>
+1. **`docker ps`**
     - **Descrição:** Lista todos os containers que estão em execução no momento.  
     - **Uso:** Permite visualizar os containers ativos, com informações como container ID, imagem, status, portas e outros detalhes.
 
+<a id='cmd-docker-1.2'></a>
 2. **`docker ps -a`**  
     - **Descrição:** Lista todos os containers, incluindo aqueles que estão parados ou finalizados.  
     - **Uso:** Útil para inspecionar o histórico de containers criados e para depuração, permitindo identificar containers que não estão mais em execução.
 
-3. **`docker run -it appweblistdocker:v1.0.0 sh`**  
+<a id='cmd-docker-2'></a>
+****2.Criar e iniciar o container****
+
+<a id='cmd-docker-'></a>
+2.1 **`docker run -it appweblistdocker:v1.0.0 sh`**  
     - **Descrição:** Executa um container interativamente a partir da imagem `appweblistdocker:v1.0.0`, abrindo um terminal (`sh`) dentro do container.  
     - **Uso:** Permite acessar o shell do container para testes ou depuração.
 
-4. **`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**  
+2.2 **`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**  
     - **Descrição:** Inicia um container da imagem `appweblistdocker:v1.0.0` e mapeia a porta 3000 do container para a porta 3000 do host.  
     - **Uso:** Permite acessar a aplicação que roda no container através da porta 3000 do host
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -p 3000:3000 appweblistdocker:v1.0.0`
 
-5. **`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**  
+2.3 **`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**  
     - **Descrição:** Inicia o container em modo *detached* (em segundo plano) e faz o mapeamento da porta 3000 do host para a porta 3000 do container a partir da imagem `appweblistdocker:v1.0.0`  
     - **Uso:** Ideal para rodar a aplicação sem ocupar o terminal.
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 appweblistdocker:v1.0.0`
 
-6. **`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**  
+2.4 **`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**  
     - **Descrição:** Inicia o container em modo *detached* (em segundo plano), faz o mapeamento da porta 3000 do host para a porta 3000 do container e nomeia o container para `appweblist-1` a partir da imagem `appweblistdocker:v1.0.0`
     - **Uso:** Ideal para rodar a aplicação sem ocupar o terminal.
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 --name appweblist-1 appweblistdocker:v1.0.0`
 
-7. **`docker logs -f <container_id|container_name>`**
+<a id='cmd-docker-3'></a>
+****3.Acessar logs do container****
+
+<a id='cmd-docker-'></a>
+3.1 **`docker logs -f <container_id|container_name>`**
     - **Flag -f:** log mostrando sempre os últimos outputs.
     - **Flag -n:** mostra o log de um determinado numeros de linha. Ex.: as ultimas 10 linhas.
     - **Flag -t:** mostra a data e horário do log
@@ -51,8 +102,11 @@
         ##### visualizando o timestamp dos logs
         > `docker logs -t appweblist-1`
 
+<a id='cmd-docker-4'></a>
+****4.Acessar o terminal do container****
 
-8. **`docker exec <container_id|container_name> cmd`**  
+<a id='cmd-docker-'></a>
+4.1 **`docker exec <container_id|container_name> cmd`**  
    - **Descrição:** Executa um comando específico dentro de um container que já está em execução. Isso permite interagir com o ambiente interno do container sem precisar acessá-lo de forma interativa.
    - **Uso:** É utilizado para realizar operações pontuais, depurar ou inspecionar o estado interno do container. Você pode executar comandos simples ou complexos conforme necessário.
    - **Exemplos:**  
@@ -64,7 +118,7 @@
      docker exec appweblist-1 pwd
      ```  
 
-9. **`docker exec -it <container_id|container_name> sh`**  
+4.2 **`docker exec -it <container_id|container_name> sh`**  
    - **Descrição:** Executa de forma interativa o shell `sh` dentro de um container que está em execução, permitindo acesso a um terminal interno para inspeção e depuração.  
    - **Uso:** Utilizado para abrir uma sessão de shell interativa dentro do container, possibilitando a execução de comandos manuais, a verificação de arquivos e a análise do ambiente interno. Os flags `-i` e `-t` garantem que o terminal seja interativo e que um pseudo-TTY seja alocado.  
    - **Exemplos:**  
@@ -76,8 +130,10 @@
      docker exec -it appweblist-1 sh
      ```  
 
+<a id='cmd-docker-5'></a>
+****5.Iniciar e parar containers existentes****
 
-10. **`docker start <container_id|container_name>`**  
+5.1 **`docker start <container_id|container_name>`**  
 - **Descrição:** Inicia um container que está parado, reativando sua execução a partir do estado em que foi interrompido.  
 - **Uso:** Utilizado quando um container previamente criado e parado precisa ser reiniciado sem precisar criar um novo container.  
 - **Exemplo:**  
@@ -89,7 +145,7 @@
   docker start f8d601dac46f
   ```
 
-11. **`docker stop <container_id|container_name>`**  
+5.2. **`docker stop <container_id|container_name>`**  
     - **Descrição:** Interrompe a execução de um container em execução, enviando um sinal SIGTERM e permitindo que o container finalize de forma graciosa.  
     - **Uso:** Substitua `<container_id|container_name>` pelo ID ou nome do container que deseja parar.  
     - **Exemplo:**  
@@ -101,7 +157,10 @@
       docker stop appweblist-1
       ```
 
-12. **`docker rm <container_id|container_name>`**  
+<a id='cmd-docker-6'></a>
+****6.Remover containers****
+
+6.1 **`docker rm <container_id|container_name>`**  
     - **Descrição:** Remove um container parado, identificando-o pelo ID ou nome.  
     - **Uso:** Após parar o container com `docker stop`, o comando `docker rm` remove o container, liberando recursos e mantendo o ambiente limpo.  
     - **Exemplo:**  
@@ -113,7 +172,7 @@
       docker rm app_container:v1.0.0
       ```
 
-13. **`docker rm -f <container_id|container_name>`**  
+6.2 **`docker rm -f <container_id|container_name>`**  
     - **Descrição:** Remove um container que esta rodando, (-f) de maneira forçada, identificando-o pelo ID ou nome.  
     - **Uso:** Remove o container usando modo forçado `-f`, liberando recursos e mantendo o ambiente limpo.  
     - **Exemplo:**  
@@ -125,8 +184,10 @@
       docker rm -f app_container:v1.0.0
       ```
 
+<a id='cmd-docker-7'></a>
+****7.Cópia de arquivos entre host e container****
 
-14. **`docker cp <source_path> <container_id|container_name>:<destination_path>`**  
+7.1 **`docker cp <source_path> <container_id|container_name>:<destination_path>`**  
    - **Descrição:** Copia arquivos ou diretórios entre o sistema de arquivos do host e um container em execução (ou vice-versa).  
    - **Uso:** Utilizado para transferir dados para dentro ou para fora de um container. Ao especificar o destino, se o caminho estiver no container, deve ser precedido pelo identificador ou nome do container seguido de `:`.  
    - **Exemplos:**  
@@ -139,7 +200,10 @@
        docker cp 0921363f0510:/home/rprojetos/app/test.txt .
        ```  
 
-15. **`docker volume create <nome_do_volume>`**  
+<a id='cmd-docker-8'></a>
+****8.Operações com Volume "host/container"****
+
+8.1 **`docker volume create <nome_do_volume>`**  
    - **Descrição:** Cria um volume Docker com o nome especificado.  
    - **Uso:** Utilizado para persistir dados e permitir que sejam compartilhados entre containers, mantendo os dados mesmo que os containers sejam recriados ou removidos.  
    - **Exemplos:**  
@@ -147,7 +211,7 @@
      docker volume create appweblist-1-dados
      ```
 
-16. Criando um volume que utilize um caminho específico no host utilizando o driver local com opções de bind mount.
+8.2 Criando um volume que utilize um caminho específico no host utilizando o driver local com opções de bind mount.
 
     **Sintax:** `docker volume create --driver local --opt type=none --opt device=/caminho/especifico/no/host --opt o=bind meu_volume`
     **Exemplo**:
@@ -155,8 +219,7 @@
 docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/dados appweblistdocker:v1.0.0
 ```
 
-
-17. **`docker volume ls`**  
+8.3 **`docker volume ls`**  
 - **Descrição:** Lista todos os volumes gerenciados pela Docker Engine.  
 - **Uso:** Exibe os volumes existentes no ambiente, mostrando informações como o nome do volume e o driver utilizado.  
 - **Exemplo:**  
@@ -164,7 +227,7 @@ docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/
   docker volume ls
   ```
 
-18. **`docker volume inspect <nome_do_volume>`**  
+8.4 **`docker volume inspect <nome_do_volume>`**  
    - **Descrição:** Exibe informações detalhadas sobre o volume especificado, incluindo seu caminho de montagem, driver utilizado e outras configurações.  
    - **Uso:** Útil para diagnosticar e verificar as propriedades de um volume, garantindo que ele esteja configurado conforme o esperado.  
    - **Exemplos:**  
@@ -172,7 +235,7 @@ docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/
      docker volume inspect appweblist-1-dados
      ```
 
-19. **`docker run -d -p <hostPort:containerPort> --name <container> -v <volume-docker>:<mapeamento-volume-dentro-container> <IMAGE_ID|REPOSITORY:TAG>`**  
+8.5 **`docker run -d -p <hostPort:containerPort> --name <container> -v <volume-docker>:<mapeamento-volume-dentro-container> <IMAGE_ID|REPOSITORY:TAG>`**  
    - **Descrição:** Inicia um container em modo detached (segundo plano) a partir da imagem especificada. O comando mapeia uma porta do host para uma porta do container, define um nome para o container e monta um volume Docker no caminho desejado dentro do container, permitindo a persistência e o compartilhamento de dados.
    - **Uso:**  
      Utilizado para iniciar aplicações Docker que precisam estar acessíveis através de uma porta definida e que exigem persistência de dados. O mapeamento de portas (`-p`) possibilita o acesso à aplicação a partir do host, e o mapeamento de volume (`-v`) assegura que os dados gerados pela aplicação sejam preservados mesmo após a reinicialização ou remoção do container.
