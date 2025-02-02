@@ -3,10 +3,14 @@
 ## Principais Comandos para manipulação de containers com DOCKER:
 
 [****1.Status do container****](#cmd-docker-1)
+
 1.1 [**`docker ps`**](#cmd-docker-1.1)
+
 1.2 [**`docker ps -a`**](#cmd-docker-1.2)
 
+
 [****2.Criar e iniciar o container****](#cmd-docker-2)
+
 2.1 [**`docker run -it appweblistdocker:v1.0.0 sh`**](#cmd-docker-2.1)
 2.2 [**`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.2)
 2.3 [**`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.3)
