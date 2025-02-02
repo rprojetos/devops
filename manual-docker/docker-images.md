@@ -1,9 +1,44 @@
 # Docker Images
 
-## FROM 
+<a id='dokerfile-menu'></a>
+## Principais instruções do Dockerfile
+
+[FROM](#from) -  define a imagem base para a construção da imagem Docker.
+
+[USER](#USER) - especifica qual usuário será utilizado para executar as operações seguintes na imagem.
+
+[COPY](#COPY) - copia arquivos ou diretórios do contexto do build para o sistema de arquivos da imagem.
+
+[WORKDIR](#WORKDIR) - define o diretório de trabalho dentro da imagem para as instruções subsequentes.
+
+[ADD](#ADD) - copia arquivos ou diretórios para a imagem, com funcionalidades extras como descompactar arquivos e aceitar URLs.
+
+[RUN](#RUN) - executa comandos durante o processo de build da imagem, geralmente para instalar pacotes ou configurar o ambiente.
+
+[ENV](#ENV) - define variáveis de ambiente que estarão disponíveis na imagem e nos containers criados a partir dela.
+
+[EXPOSE](#EXPOSE) - documenta a porta que a aplicação utilizará, informando quais portas serão expostas pelo container.
+
+[CMD](#CMD) - especifica o comando padrão a ser executado quando um container criado a partir da imagem é iniciado.
+
+##### Exemplos comentados de Dockerfile com otimização.
+
+[Dockerfile com usuáro root]() - Utiliza o usuário root para executar todas as instruções. Embora seja mais simples de construir, essa abordagem não é recomendada por questões de segurança, pois o container roda com privilégios elevados, aumentando os riscos em caso de exploração.
+
+[Dockerfile usuáro não root]() - Cria e utiliza um usuário com privilégios limitados para executar apenas as operações necessárias para a aplicação. Essa prática melhora a segurança do sistema, pois evita a exposição do usuário root e restringe as permissões do ambiente dentro do container.
+
+
+## Descrição das principais instruções do Dockerfile
+
+<a id='from'></a>
+
+## FROM
 #### Indica qual vai ser a plataforma/sistema operacional
 ###### Ex: node no linux alpine = node:12-alpine
 FROM node:12-alpine
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='USER'></a>
 
 ## USER
 ##### Criando um grupo e um usuário...
@@ -11,6 +46,9 @@ FROM node:12-alpine
 RUN addgroup dev && adduser -S -G rprojetos dev
 ##### Setando o usuário que será utilizado na imagem
 USER rprojetos
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='COPY'></a>
 
 ## COPY
 #### Cenários de uso:
@@ -22,14 +60,23 @@ COPY file-1.pdf file-2.pdf /app/
 COPY *.pdf /app/
 COPY . /app/
 
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='WORKDIR'></a>
+
 ## WORKDIR
 WORKDIR /app
 COPY . .
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='ADD'></a>
 
 ## ADD
 ADD https://um-site.com/arquivo.txt .
 ###### ADD descompacta arquivo para dentro do /app
 ADD arquivo.zip .
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='RUN'></a>
 
 ## RUN
 ###### O comando RUN executa durante a construção da imagem
@@ -38,10 +85,16 @@ ADD arquivo.zip .
 RUN apk add --no-cache python2 g++ make
 RUN yarn install --production
 
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='ENV'></a>
+
 ## ENV
 #### definindo variáveis de ambiente
 ENV API_URL=https://minha.api.com/
 ENV API_KEY=123ABC456DEF789GHI
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='EXPOSE'></a>
 
 ## EXPOSE
 ### porta do container
@@ -50,9 +103,72 @@ ENV API_KEY=123ABC456DEF789GHI
 ###### nesse caso o acesso da porta 3000 do container é possível
 EXPOSE 3000
 
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='CMD'></a>
+
 ## CMD
 ###### O comando CMD executa depois que a imagem está contruida ao subir o container.
 CMD [ "node", "./src/index.js" ]
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+
+
+## Exemplos:
+### Dockerfile com usuário root [não recomendado]
+
+```dockerfile
+# plataforma : sistema-operacional
+FROM node:12-alpine
+# Define o diretório de trabalho
+WORKDIR /app
+# Instala dependências do sistema
+RUN apk add --no-cache python2 g++ make
+# Instala depêndencias do projeto
+# Otimização: Copiando o arquivos de depências e 
+# realizando a instalação dessas criamos um layer que
+# entra em cache, e essa instalação somente rodaria
+# novamente se houver mudança nas depências
+COPY package.json .
+RUN yarn install --production
+# Copia os arquivos da aplicação para o container
+COPY . . 
+# Expõe a porta da aplicação
+EXPOSE 3000
+# Define o comando de inicialização
+CMD [ "node", "./src/index.js" ]
+```
+
+### Dockerfile com usuário não root [recomendado]
+
+```dockerfile
+# Utiliza a imagem base oficial do Node.js 12 baseada no Alpine Linux para garantir uma imagem leve e otimizada
+# plataforma : sistema-operacional
+FROM node:12-alpine
+# Cria o grupo e o usuário 'rprojetos'
+RUN addgroup -S rprojetos && adduser -S -G rprojetos rprojetos
+# Define o diretório de trabalho
+WORKDIR /home/rprojetos/app
+USER root
+# Ajusta as permissões
+RUN chown -R rprojetos:rprojetos /home/rprojetos/app
+# Instala dependências do sistema
+RUN apk add --no-cache python2 g++ make
+# Instala depêndencias do projeto
+# Otimização: Copiando o arquivos de depências e 
+# realizando a instalação dessas criamos um layer que
+# entra em cache, e essa instalação somente rodaria
+# novamente se houver mudança nas depências
+COPY package.json .
+RUN yarn install --production
+# Retorna para o usuário não-root
+USER rprojetos
+# Copia os arquivos da aplicação para o container
+COPY . .
+# Expõe a porta da aplicação
+EXPOSE 3000
+# Define o comando de inicialização
+CMD [ "node", "./src/index.js" ]
+```
 
 <hr>
 
@@ -156,63 +272,6 @@ ou
     - **Descrição:** Associa uma nova tag à imagem Docker identificada pelo ID `9bcd793bb263`.  
     - **Uso:** Este comando renomeia a imagem para `rprojetosit/appweblistdocker` e atribui a ela a tag `v1.0.0`, permitindo que a imagem seja referenciada por esse nome e versão. Isso é útil para versionamento ou para facilitar o envio (push) da imagem a um registro (registry).
 
-
-## Exemplos:
-### Dockerfile com usuário root [não recomendado]
-
-```dockerfile
-# plataforma : sistema-operacional
-FROM node:12-alpine
-# Define o diretório de trabalho
-WORKDIR /app
-# Instala dependências do sistema
-RUN apk add --no-cache python2 g++ make
-# Instala depêndencias do projeto
-# Otimização: Copiando o arquivos de depências e 
-# realizando a instalação dessas criamos um layer que
-# entra em cache, e essa instalação somente rodaria
-# novamente se houver mudança nas depências
-COPY package.json .
-RUN yarn install --production
-# Copia os arquivos da aplicação para o container
-COPY . . 
-# Expõe a porta da aplicação
-EXPOSE 3000
-# Define o comando de inicialização
-CMD [ "node", "./src/index.js" ]
-```
-
-### Dockerfile com usuário não root [recomendado]
-
-```dockerfile
-# Utiliza a imagem base oficial do Node.js 12 baseada no Alpine Linux para garantir uma imagem leve e otimizada
-# plataforma : sistema-operacional
-FROM node:12-alpine
-# Cria o grupo e o usuário 'rprojetos'
-RUN addgroup -S rprojetos && adduser -S -G rprojetos rprojetos
-# Define o diretório de trabalho
-WORKDIR /home/rprojetos/app
-USER root
-# Ajusta as permissões
-RUN chown -R rprojetos:rprojetos /home/rprojetos/app
-# Instala dependências do sistema
-RUN apk add --no-cache python2 g++ make
-# Instala depêndencias do projeto
-# Otimização: Copiando o arquivos de depências e 
-# realizando a instalação dessas criamos um layer que
-# entra em cache, e essa instalação somente rodaria
-# novamente se houver mudança nas depências
-COPY package.json .
-RUN yarn install --production
-# Retorna para o usuário não-root
-USER rprojetos
-# Copia os arquivos da aplicação para o container
-COPY . .
-# Expõe a porta da aplicação
-EXPOSE 3000
-# Define o comando de inicialização
-CMD [ "node", "./src/index.js" ]
-```
 
 ## Compartilhamento de imagens
 1. Logar em https://hub.docker.com 
