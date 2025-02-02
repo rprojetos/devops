@@ -86,14 +86,14 @@
     - **Descrição:** Lista todos os containers que estão em execução no momento.  
     - **Uso:** Permite visualizar os containers ativos, com informações como container ID, imagem, status, portas e outros detalhes.
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-1.2'></a>
 1.2 **`docker ps -a`**  
     - **Descrição:** Lista todos os containers, incluindo aqueles que estão parados ou finalizados.  
     - **Uso:** Útil para inspecionar o histórico de containers criados e para depuração, permitindo identificar containers que não estão mais em execução.
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -105,7 +105,7 @@
     - **Descrição:** Executa um container interativamente a partir da imagem `appweblistdocker:v1.0.0`, abrindo um terminal (`sh`) dentro do container.  
     - **Uso:** Permite acessar o shell do container para testes ou depuração.
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.2'></a>
 2.2 **`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**  
@@ -115,7 +115,7 @@
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -p 3000:3000 appweblistdocker:v1.0.0`
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.3'></a>
 2.3 **`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**  
@@ -125,7 +125,7 @@
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 appweblistdocker:v1.0.0`
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.4'></a>
 2.4 **`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**  
@@ -135,7 +135,7 @@
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 --name appweblist-1 appweblistdocker:v1.0.0`
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -159,7 +159,7 @@
         ##### visualizando o timestamp dos logs
         > `docker logs -t appweblist-1`
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -179,7 +179,7 @@
      docker exec appweblist-1 pwd
      ```  
 
-  [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-4.2'></a>
 4.2 **`docker exec -it <container_id|container_name> sh`**  
@@ -194,7 +194,7 @@
      docker exec -it appweblist-1 sh
      ```  
 
-  [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -214,7 +214,7 @@
       docker start f8d601dac46f
       ```
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 
 <a id='cmd-docker-5.2'></a>
@@ -230,7 +230,7 @@
       docker stop appweblist-1
       ```
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -250,7 +250,7 @@
       docker rm app_container:v1.0.0
       ```
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <a id='cmd-docker-6.2'></a>
 6.2 **`docker rm -f <container_id|container_name>`**  
@@ -265,7 +265,7 @@
       docker rm -f app_container:v1.0.0
       ```
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -286,7 +286,7 @@
        docker cp 0921363f0510:/home/rprojetos/app/test.txt .
        ```  
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr>
 
@@ -302,7 +302,7 @@
      docker volume create appweblist-1-dados
      ```
 
-  [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
   
 <a id='cmd-docker-8.2'></a>
 8.2 Criando um volume que utilize um caminho específico no host utilizando o driver local com opções de bind mount.
@@ -324,7 +324,7 @@
       docker volume ls
       ```
 
-    [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 
 <a id='cmd-docker-8.4'></a>
@@ -336,7 +336,7 @@
      docker volume inspect appweblist-1-dados
      ```
 
-  [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 
 <a id='cmd-docker-8.5'></a>
@@ -349,7 +349,7 @@
      docker run -d -p 3000:3000 --name appweblist-v1 -v appweblist-1-dados:/home/rprojetos/app/dados appweblistdocker:v1.0.0
      ```
 
-  [retornar para o menu](#container-menu)
+[retornar para o menu](#container-menu)
 
 <hr><hr>
 
