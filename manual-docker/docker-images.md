@@ -23,9 +23,9 @@
 
 ##### Exemplos comentados de Dockerfile com otimização.
 
-[Dockerfile com usuáro root]() - Utiliza o usuário root para executar todas as instruções. Embora seja mais simples de construir, essa abordagem não é recomendada por questões de segurança, pois o container roda com privilégios elevados, aumentando os riscos em caso de exploração.
+[Dockerfile com usuáro root](#exemplo-com-root) - Utiliza o usuário root para executar todas as instruções. Embora seja mais simples de construir, essa abordagem não é recomendada por questões de segurança, pois o container roda com privilégios elevados, aumentando os riscos em caso de exploração.
 
-[Dockerfile usuáro não root]() - Cria e utiliza um usuário com privilégios limitados para executar apenas as operações necessárias para a aplicação. Essa prática melhora a segurança do sistema, pois evita a exposição do usuário root e restringe as permissões do ambiente dentro do container.
+[Dockerfile usuáro não root](#exemplo-nao-root) - Cria e utiliza um usuário com privilégios limitados para executar apenas as operações necessárias para a aplicação. Essa prática melhora a segurança do sistema, pois evita a exposição do usuário root e restringe as permissões do ambiente dentro do container.
 
 
 ## Descrição das principais instruções do Dockerfile
@@ -114,6 +114,9 @@ CMD [ "node", "./src/index.js" ]
 
 
 ## Exemplos:
+
+<a id='exemplo-com-root'></a>
+
 ### Dockerfile com usuário root [não recomendado]
 
 ```dockerfile
@@ -137,6 +140,9 @@ EXPOSE 3000
 # Define o comando de inicialização
 CMD [ "node", "./src/index.js" ]
 ```
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
+<a id='exemplo-nao-root'></a>
 
 ### Dockerfile com usuário não root [recomendado]
 
@@ -169,6 +175,8 @@ EXPOSE 3000
 # Define o comando de inicialização
 CMD [ "node", "./src/index.js" ]
 ```
+
+[retornar para - Instruções Dockerfile](#dokerfile-menu)
 
 <hr>
 
