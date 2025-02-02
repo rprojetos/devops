@@ -1,4 +1,4 @@
-# devops
+# DevOps
 DevOps é uma abordagem que integra desenvolvimento e operações para unificar os processos de criação, teste e implantação de software, promovendo colaboração e automação. O Git é essencial para o controle de versão e colaboração no código fonte. O Docker cria ambientes padronizados por meio da containerização, garantindo que a aplicação rode de forma consistente em qualquer lugar. O Kubernetes orquestra esses containers, possibilitando escalabilidade, resiliência e gerenciamento eficiente de clusters. O Jenkins automatiza os processos de integração contínua e entrega contínua (CI/CD), executando testes e deploys de forma automatizada. Juntos, esses componentes formam uma cadeia integrada que acelera a entrega de software com qualidade e confiabilidade.
 
 ## Docker
