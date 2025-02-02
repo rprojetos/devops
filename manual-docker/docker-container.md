@@ -4,10 +4,10 @@
 
 [****1.Status do container****](#cmd-docker-1)
 
-
 1.1 [**`docker ps`**](#cmd-docker-1.1)
 
 1.2 [**`docker ps -a`**](#cmd-docker-1.2)
+
 
 [****2.Criar e iniciar o container****](#cmd-docker-2)
 
@@ -44,18 +44,22 @@
 
 ## Descrição dos principais Comandos para manipulação de containers com DOCKER
 
+<hr>
+
 <a id='cmd-docker-1'></a>
 ****1.Status do container****
 
 <a id='cmd-docker-1.1'></a>
-1. **`docker ps`**
+1.1 **`docker ps`**
     - **Descrição:** Lista todos os containers que estão em execução no momento.  
     - **Uso:** Permite visualizar os containers ativos, com informações como container ID, imagem, status, portas e outros detalhes.
 
 <a id='cmd-docker-1.2'></a>
-2. **`docker ps -a`**  
+1.2 **`docker ps -a`**  
     - **Descrição:** Lista todos os containers, incluindo aqueles que estão parados ou finalizados.  
     - **Uso:** Útil para inspecionar o histórico de containers criados e para depuração, permitindo identificar containers que não estão mais em execução.
+
+<hr>
 
 <a id='cmd-docker-2'></a>
 ****2.Criar e iniciar o container****
@@ -86,6 +90,8 @@
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 --name appweblist-1 appweblistdocker:v1.0.0`
 
+<hr>
+
 <a id='cmd-docker-3'></a>
 ****3.Acessar logs do container****
 
@@ -105,6 +111,8 @@
         > `docker logs -n 10 appweblist-1`
         ##### visualizando o timestamp dos logs
         > `docker logs -t appweblist-1`
+
+<hr>
 
 <a id='cmd-docker-4'></a>
 ****4.Acessar o terminal do container****
@@ -134,6 +142,8 @@
      docker exec -it appweblist-1 sh
      ```  
 
+<hr>
+
 <a id='cmd-docker-5'></a>
 ****5.Iniciar e parar containers existentes****
 
@@ -160,6 +170,8 @@
       ```bash
       docker stop appweblist-1
       ```
+
+<hr>
 
 <a id='cmd-docker-6'></a>
 ****6.Remover containers****
@@ -188,6 +200,8 @@
       docker rm -f app_container:v1.0.0
       ```
 
+<hr>
+
 <a id='cmd-docker-7'></a>
 ****7.Cópia de arquivos entre host e container****
 
@@ -203,6 +217,8 @@
        ```bash
        docker cp 0921363f0510:/home/rprojetos/app/test.txt .
        ```  
+
+<hr>
 
 <a id='cmd-docker-8'></a>
 ****8.Operações com Volume "host/container"****
