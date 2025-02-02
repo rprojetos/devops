@@ -12,33 +12,55 @@
 [****2.Criar e iniciar o container****](#cmd-docker-2)
 
 2.1 [**`docker run -it appweblistdocker:v1.0.0 sh`**](#cmd-docker-2.1)
+
 2.2 [**`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.2)
+
 2.3 [**`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**](#cmd-docker-2.3)
+
 2.4 [**`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**](#cmd-docker-2.4)
 
+
 [****3.Acessar logs do container****](#cmd-docker-3)
+
 3.1 [**`docker logs -f <container_id|container_name>`**](#cmd-docker-3.1)
 
+
 [****4.Acessar o terminal do container****](#cmd-docker-4)
+
 4.1 [**`docker exec <container_id|container_name> cmd`**](#cmd-docker-4.1)
+
 4.2 [**`docker exec -it <container_id|container_name> sh`**](#cmd-docker-4.2)
 
+
 [****5.Iniciar e parar containers existentes****](#cmd-docker-5)
+
 5.1 [**`docker start <container_id|container_name>`**](#cmd-docker-5.1)
+
 5.2 [**`docker stop <container_id|container_name>`**](#cmd-docker-5.2)
 
+
 [****6.Remover containers****](#cmd-docker-6)
+
 6.1 [**`docker rm <container_id|container_name>`**](#cmd-docker-6.1)
+
 6.2 [**`docker rm -f <container_id|container_name>`**](#cmd-docker-6.2)
 
+
 [****7.Cópia de arquivos entre host e container****](#cmd-docker-7)
+
 7.1 [**`docker cp <source_path> <container_id|container_name>:<destination_path>`**](#cmd-docker-7.1)
 
+
 [****8.Operações com Volume "host/container"****](#cmd-docker-8)
+
 8.1 [**`docker volume create <nome_do_volume>`**](#cmd-docker-8.1)
+
 8.2 [**`Criando um volume que utilize um caminho específico no host`**](#cmd-docker-8.2)
+
 8.3 [**`docker volume ls`**](#cmd-docker-8.3)
+
 8.4 [**`docker volume inspect <nome_do_volume>`**](#cmd-docker-8.4)
+
 8.5 [**`Mapeamento de volume entre host e container`**](#cmd-docker-8.5)
 
 
