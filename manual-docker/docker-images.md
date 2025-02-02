@@ -53,11 +53,17 @@ USER rprojetos
 ## COPY
 #### Cenários de uso:
 COPY file-1.pdf
+
 COPY file-1.pdf file-2.pdf
+
 COPY file-1.pdf /app
+
 COPY file-1.pdf /app/
+
 COPY file-1.pdf file-2.pdf /app/
+
 COPY *.pdf /app/
+
 COPY . /app/
 
 [retornar para - Instruções Dockerfile](#dokerfile-menu)
@@ -65,6 +71,7 @@ COPY . /app/
 
 ## WORKDIR
 WORKDIR /app
+
 COPY . .
 
 [retornar para - Instruções Dockerfile](#dokerfile-menu)
@@ -83,6 +90,7 @@ ADD arquivo.zip .
 #### Instalação de dependencias da aplicação
 ###### obs: no S.O.(linux alpine), o camando de instalação é com apk e  não apt no caso do debian
 RUN apk add --no-cache python2 g++ make
+
 RUN yarn install --production
 
 [retornar para - Instruções Dockerfile](#dokerfile-menu)
@@ -91,6 +99,7 @@ RUN yarn install --production
 ## ENV
 #### definindo variáveis de ambiente
 ENV API_URL=https://minha.api.com/
+
 ENV API_KEY=123ABC456DEF789GHI
 
 [retornar para - Instruções Dockerfile](#dokerfile-menu)
