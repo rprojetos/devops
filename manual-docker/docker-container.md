@@ -85,12 +85,14 @@
 1.1 **`docker ps`**
     - **Descrição:** Lista todos os containers que estão em execução no momento.  
     - **Uso:** Permite visualizar os containers ativos, com informações como container ID, imagem, status, portas e outros detalhes.
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-1.2'></a>
 1.2 **`docker ps -a`**  
     - **Descrição:** Lista todos os containers, incluindo aqueles que estão parados ou finalizados.  
     - **Uso:** Útil para inspecionar o histórico de containers criados e para depuração, permitindo identificar containers que não estão mais em execução.
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -102,6 +104,7 @@
 2.1 **`docker run -it appweblistdocker:v1.0.0 sh`**  
     - **Descrição:** Executa um container interativamente a partir da imagem `appweblistdocker:v1.0.0`, abrindo um terminal (`sh`) dentro do container.  
     - **Uso:** Permite acessar o shell do container para testes ou depuração.
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.2'></a>
@@ -111,6 +114,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -p 3000:3000 appweblistdocker:v1.0.0`
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.3'></a>
@@ -120,6 +124,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 appweblistdocker:v1.0.0`
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.4'></a>
@@ -129,6 +134,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 --name appweblist-1 appweblistdocker:v1.0.0`
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -152,6 +158,7 @@
         > `docker logs -n 10 appweblist-1`
         ##### visualizando o timestamp dos logs
         > `docker logs -t appweblist-1`
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -171,6 +178,7 @@
      ```bash
      docker exec appweblist-1 pwd
      ```  
+
   [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-4.2'></a>
@@ -185,6 +193,7 @@
      ```bash
      docker exec -it appweblist-1 sh
      ```  
+
   [retornar para o menu](#container-menu)
 
 <hr>
@@ -204,7 +213,9 @@
       ```bash
       docker start f8d601dac46f
       ```
+
     [retornar para o menu](#container-menu)
+
 
 <a id='cmd-docker-5.2'></a>
 5.2. **`docker stop <container_id|container_name>`**  
@@ -218,6 +229,7 @@
       ```bash
       docker stop appweblist-1
       ```
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -237,6 +249,7 @@
       ```bash
       docker rm app_container:v1.0.0
       ```
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-6.2'></a>
@@ -251,6 +264,7 @@
       ```bash
       docker rm -f app_container:v1.0.0
       ```
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -271,6 +285,7 @@
        ```bash
        docker cp 0921363f0510:/home/rprojetos/app/test.txt .
        ```  
+
     [retornar para o menu](#container-menu)
 
 <hr>
@@ -286,6 +301,7 @@
      ```bash
      docker volume create appweblist-1-dados
      ```
+
   [retornar para o menu](#container-menu)
   
 <a id='cmd-docker-8.2'></a>
@@ -296,6 +312,7 @@
     ```bash
     docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/dados appweblistdocker:v1.0.0
     ```
+
     [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-8.3'></a>
@@ -306,7 +323,9 @@
       ```bash
       docker volume ls
       ```
+
     [retornar para o menu](#container-menu)
+
 
 <a id='cmd-docker-8.4'></a>
 8.4 **`docker volume inspect <nome_do_volume>`**  
@@ -316,7 +335,9 @@
      ```bash
      docker volume inspect appweblist-1-dados
      ```
+
   [retornar para o menu](#container-menu)
+
 
 <a id='cmd-docker-8.5'></a>
 8.5 **`docker run -d -p <hostPort:containerPort> --name <container> -v <volume-docker>:<mapeamento-volume-dentro-container> <IMAGE_ID|REPOSITORY:TAG>`**  
@@ -327,6 +348,7 @@
      ```bash
      docker run -d -p 3000:3000 --name appweblist-v1 -v appweblist-1-dados:/home/rprojetos/app/dados appweblistdocker:v1.0.0
      ```
+
   [retornar para o menu](#container-menu)
 
 <hr><hr>
@@ -357,6 +379,7 @@ chown -R user:user /home/user
      ```bash
      chown -R rprojetos:rprojetos /home/rprojetos
      ```
+     
 [retornar para o menu](#container-menu)
 
 <hr>
