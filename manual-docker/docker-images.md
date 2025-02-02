@@ -28,6 +28,7 @@
 [Dockerfile usuáro não root](#exemplo-nao-root) - Cria e utiliza um usuário com privilégios limitados para executar apenas as operações necessárias para a aplicação. Essa prática melhora a segurança do sistema, pois evita a exposição do usuário root e restringe as permissões do ambiente dentro do container.
 
 
+<a id='docker-image-menu'></a>
 ## Principais Comandos para manipulação imagens com DOCKER
 
 **IMAGE_NAME = REPOSITORY:TAG**
@@ -36,24 +37,37 @@ Ex.: `appweblistdocker:v1.0.0`
 Obs.: Para maiores detalhes clique em cima do respectivo comando.
 
 1. Constrói uma imagem a partir do Dockerfile presente no diretório atual e atribui a ela um nome especificado. Utiliza o cache para acelerar o build.
-    > [**docker build -t <IMAGE_NAME> .**](#)
+    > [**docker build -t <IMAGE_NAME> .**](#docker-build)
 
 2. Constrói a imagem a partir do Dockerfile sem usar nenhum cache, garantindo que todas as etapas sejam executadas do zero, e atribui o nome especificado.
-    > [**docker build --no-cache -t <IMAGE_NAME> .**](#)
+    > [**docker build --no-cache -t <IMAGE_NAME> .**](#docker-build-no-chache)
 
 3. Ambos os comandos removem as imagens "dangling" (imagens sem tag) que não estão sendo utilizadas, liberando espaço no sistema. O primeiro comando faz isso de forma automática com a flag -f, enquanto o segundo usa um filtro para listar e remover essas imagens.
-    > [**docker image prune -f**](#)
+    > [**docker image prune -f**](#docker-image-prune)
 ou
-    [**docker rmi $(docker images -f "dangling=true" -q)**](#)
+    [**docker rmi $(docker images -f "dangling=true" -q)**](#docker-rmi-dangling)
 
 4. Remove a imagem especificada do ambiente local, liberando o espaço ocupado por ela.
-    > [**docker image remove <IMAGE_NAME|IMAGE_ID>**](#)
+    > [**docker image remove <IMAGE_NAME|IMAGE_ID>**](#docker-image-remove)
 
 5. Cria uma nova tag ex.(v1.0.0) para a imagem que atualmente possui a tag "latest", facilitando a versão da imagem sem a necessidade de reconstruí-la.
-    > [**docker image tag REPOSITORY:latest REPOSITORY:v1.0.0**](#)
+    > [**docker image tag REPOSITORY:latest REPOSITORY:v1.0.0**](#docker-image-new-tag)
 
 6. Atribui a tag "v1.0.0" e renomeia a imagem identificada pelo ID IMAGE_ID para "REPOSITORY:v1.0.0", facilitando o versionamento e identificação da imagem.
-    > [**docker image tag IMAGE_ID REPOSITORY:v1.0.0**](#)
+    > [**docker image tag IMAGE_ID REPOSITORY:v1.0.0**](#docker-rename-image)
+
+<a id='operacoes-docker-image'></a>
+
+## Operações com imagens docker (compartilhar, salvar, carregar)
+
+- #### [Compartilhamento de imagens](#docker-push-repository)
+
+    > Compartilhamento de imagens: Refere-se à ação de disponibilizar uma imagem em um repositório online, como o Docker Hub (https://hub.docker.com/). Isso permite que outras pessoas ou sistemas baixem e utilizem a imagem, promovendo a colaboração e a distribuição de aplicações.
+
+- #### [Salvando e carregando imagens](#docker-save-load)
+
+    > Salvando e carregando imagens: Trata-se de exportar uma imagem Docker para um arquivo compactado (geralmente em formato tar) usando, por exemplo, "docker image save". Esse arquivo pode ser armazenado, transferido ou arquivado. Posteriormente, a imagem pode ser reimportada para o Docker com "docker image load", facilitando a distribuição offline ou a migração entre ambientes.
+
 
 
 ## Descrição das principais instruções do Dockerfile
@@ -216,58 +230,54 @@ CMD [ "node", "./src/index.js" ]
 
 <hr>
 
-## Principais Comandos para manipulação imagens com DOCKER
-1. > **docker build -t appweblistdocker .**
-2. > **docker build --no-cache -t appweblistdocker .**
-3. > **docker build -t appweblistdocker:v1.0.0 .**
-4. > **docker run -it appweblistdocker sh**
-5. > **docker run -p 3000:3000 appweblistdocker**
-6. > **docker run -dp 3000:3000 appweblistdocker**
-7. > **docker logs appweblistdocker**
-8. > **docker image prune -f**
-ou
-**docker rmi $(docker images -f "dangling=true" -q)**
-9. > **docker image remove appweblistdocker:v1.0.0**
-10. > **docker image tag appweblistdocker:latest appweblistdocker:v1.0.0**
-11. > **`docker ps`** 
-12. > **`docker ps -a`** 
-13. > **`docker stop <container_id|container_name>`** 
-14. > **`docker rm <container_id|container_name>`** 
-15. > **`docker image tag 9bcd793bb263 rprojetosit/appweblistdocker:v1.0.0`**
-
-
 ## Descrição dos principais Comandos para manipulação imagens com DOCKER
 
-1. **`docker build -t appweblistdocker .`**  
-    - **Descrição:** Constrói uma imagem Docker a partir do Dockerfile no diretório atual e a nomeia (tag) como `appweblistdocker`.  
+<a id='docker-build'></a>
+
+1. **`docker build -t appweblistdocker:v1.0.0 .`**  
+    - **Descrição:** Constrói uma imagem Docker a partir do Dockerfile no diretório atual e a nomeia (tag) como `appweblistdocker` com a versão v1.0.0.  
     - **Uso:** Utiliza as camadas de cache se disponíveis para acelerar o build.
+
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-build-no-chache'></a>
 
 2. **`docker build --no-cache -t appweblistdocker .`**  
     - **Descrição:** Constrói a imagem Docker do mesmo jeito, mas sem utilizar nenhuma camada de cache, forçando a reconstrução completa.  
     - **Uso:** Útil quando você quer garantir que todas as etapas sejam executadas do zero.
 
-3. **`docker build -t appweblistdocker:v1.0.0 .`**  
-    - **Descrição:** Constrói uma imagem Docker a partir do Dockerfile no diretório atual e a nomeia (tag) como `appweblistdocker` com a versão v1.0.0.  
-    - **Uso:** Utiliza as camadas de cache se disponíveis para acelerar o build.
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-image-prune'></a>
+<a id='docker-rmi-dangling'></a>
 
-4. **`docker image prune -f`**
+3. **`docker image prune -f`**
 ou
 **`docker rmi $(docker images -f "dangling=true" -q)`**
     - **Descrição:** remove as imagens "dangling" (aquelas que aparecem com `<none>` no repositório
     - **Uso:**  remover as imagens sem tag (dangling images) do seu sistema.
 
-5. **`docker image remove appweblistdocker:v1.0.0`**  
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-image-remove'></a>
+
+4. **`docker image remove appweblistdocker:v1.0.0`**  
     - **Descrição:** Remove a imagem Docker nomeada `appweblistdocker` com a tag `v1.0.0` do ambiente local.  
     - **Uso:** Útil para liberar espaço em disco ou remover versões obsoletas da imagem.
 
-6. **`docker image tag appweblistdocker:latest appweblistdocker:v1.0.0`**  
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-image-new-tag'></a>
+
+5. **`docker image tag appweblistdocker:latest appweblistdocker:v1.0.0`**  
     - **Descrição:** Cria uma nova tag `v1.0.0` para a imagem `appweblistdocker` que atualmente possui a tag `latest`.  
     - **Uso:** Permite versionar uma imagem existente sem recriá-la, facilitando a identificação e o gerenciamento de versões.
 
-7. **`docker image tag 9bcd793bb263 rprojetosit/appweblistdocker:v1.0.0`**  
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-rename-image'></a>
+
+6. **`docker image tag 9bcd793bb263 rprojetosit/appweblistdocker:v1.0.0`**  
     - **Descrição:** Associa uma nova tag à imagem Docker identificada pelo ID `9bcd793bb263`.  
     - **Uso:** Este comando renomeia a imagem para `rprojetosit/appweblistdocker` e atribui a ela a tag `v1.0.0`, permitindo que a imagem seja referenciada por esse nome e versão. Isso é útil para versionamento ou para facilitar o envio (push) da imagem a um registro (registry).
 
+[retornar para - Instruções Dockerfile](#docker-image-menu)
+<a id='docker-push-repository'></a>
 
 ## Compartilhamento de imagens
 1. Logar em https://hub.docker.com 
@@ -283,10 +293,15 @@ ou
 6. Envia (push) da imagem `rprojetosit/appweblistdocker:v1.0.0` a um registro (registry), no caso aqui para o https://hub.docker.com
     > **`docker push rprojetosit/appweblistdocker:v1.0.0`**
 
+[retornar para - Operações com imagens docker](#operacoes-docker-image)
+<a id='docker-save-load'></a>
+
 ## Salvando e carregando imagens
 1. Salvando a imagem `appweblistdocker:v1.0.0` em um arquivo tar chamado `appweblistdocker-v1.0.0.tar`
     > **`docker image save -o appweblistdocker-v1.0.0.tar appweblistdocker:v1.0.0`**
 
 2. Carrega a imagem contida no arquivo `appweblistdocker-v1.0.0.tar` para o ambiente Docker.
     > **`docker image load -i appweblistdocker-v1.0.0.tar`**
+
+[retornar para - Operações com imagens docker](#operacoes-docker-image)
 
