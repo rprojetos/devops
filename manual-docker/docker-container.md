@@ -205,9 +205,10 @@ Caso também seja necessário ajustar as permissões (permitindo leitura, escrit
 ```bash
 chmod -R 700 /home/user
 ```
-***[Não Recomendado]***
-O comando ~~chmod -R 777~~ dá acesso total a todos usuários:
+
+Atenção: [Não recomendado] O comando ~~chmod -R 777~~ dá acesso total a todos usuários:
 ~~chmod -R 777 /home/user~~
+
 
 **Outros comandos uteis:**
 
