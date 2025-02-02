@@ -182,6 +182,7 @@ docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/
      ```
 
 **Observações sobre volumes:**
+
 Paro containers que foram criados a partir de uma imagem que utiliza usuário `não root` temos que dar acesso total para esse usuário dentro do diretório correspondente `/home/user`, para que este tenha acesso ao volume que foi criado/mapeado.
 1. Inicie uma nova sessão do terminal como root 
 ```docker exec -it -u root <container_id|container_name> sh```
@@ -199,6 +200,7 @@ chown -R user:user /home/user
      chown -R rprojetos:rprojetos /home/rprojetos
      ```
 **Controle de acessos:**
+
 Caso também seja necessário ajustar as permissões (permitindo leitura, escrita e execução para o proprietário), você pode usar:
 ```bash
 chmod -R 700 /home/user
@@ -208,6 +210,7 @@ O comando ~~chmod -R 777~~ dá acesso total a todos usuários:
 ~~chmod -R 777 /home/user~~
 
 **Outros comandos uteis:**
+
 Verificar o usuário corrente, você pode utilizar o comando:
 > `whoami`
 
