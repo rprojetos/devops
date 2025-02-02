@@ -1,5 +1,6 @@
 # Docker Container
 
+<a id='container-menu'></a>
 ## Principais Comandos para manipulação de containers com DOCKER:
 
 [****1.Status do container****](#cmd-docker-1)
@@ -63,6 +64,15 @@
 
 8.5 [**`Mapeamento de volume entre host e container`**](#cmd-docker-8.5)
 
+## [Anotações Gerais](#notas)
+
+[**Observações sobre volumes**](#notas-volumes)
+
+[**Controle de acessos**](#notas-acessos)
+
+[**Comandos uteis**](#notas-Comandos-uteis)
+
+<br>
 
 ## Descrição dos principais Comandos para manipulação de containers com DOCKER
 
@@ -75,11 +85,13 @@
 1.1 **`docker ps`**
     - **Descrição:** Lista todos os containers que estão em execução no momento.  
     - **Uso:** Permite visualizar os containers ativos, com informações como container ID, imagem, status, portas e outros detalhes.
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-1.2'></a>
 1.2 **`docker ps -a`**  
     - **Descrição:** Lista todos os containers, incluindo aqueles que estão parados ou finalizados.  
     - **Uso:** Útil para inspecionar o histórico de containers criados e para depuração, permitindo identificar containers que não estão mais em execução.
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -90,6 +102,7 @@
 2.1 **`docker run -it appweblistdocker:v1.0.0 sh`**  
     - **Descrição:** Executa um container interativamente a partir da imagem `appweblistdocker:v1.0.0`, abrindo um terminal (`sh`) dentro do container.  
     - **Uso:** Permite acessar o shell do container para testes ou depuração.
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.2'></a>
 2.2 **`docker run -p hostPort:containerPort appweblistdocker:v1.0.0`**  
@@ -98,6 +111,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -p 3000:3000 appweblistdocker:v1.0.0`
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.3'></a>
 2.3 **`docker run -d -p hostPort:containerPort appweblistdocker:v1.0.0`**  
@@ -106,6 +120,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 appweblistdocker:v1.0.0`
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-2.4'></a>
 2.4 **`docker run -d -p hostPort:containerPort --name appweblist-1 appweblistdocker:v1.0.0`**  
@@ -114,6 +129,7 @@
     **Exemplo:**
         ##### mapeamento de portas host=3000 e container=3000
         > `docker run -d -p 3000:3000 --name appweblist-1 appweblistdocker:v1.0.0`
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -136,6 +152,7 @@
         > `docker logs -n 10 appweblist-1`
         ##### visualizando o timestamp dos logs
         > `docker logs -t appweblist-1`
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -154,6 +171,7 @@
      ```bash
      docker exec appweblist-1 pwd
      ```  
+  [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-4.2'></a>
 4.2 **`docker exec -it <container_id|container_name> sh`**  
@@ -167,6 +185,7 @@
      ```bash
      docker exec -it appweblist-1 sh
      ```  
+  [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -175,16 +194,17 @@
 
 <a id='cmd-docker-5.1'></a>
 5.1 **`docker start <container_id|container_name>`**  
-- **Descrição:** Inicia um container que está parado, reativando sua execução a partir do estado em que foi interrompido.  
-- **Uso:** Utilizado quando um container previamente criado e parado precisa ser reiniciado sem precisar criar um novo container.  
-- **Exemplo:**  
-  ```bash
-  docker start appweblist-1
-  ```
-  ou
-  ```bash
-  docker start f8d601dac46f
-  ```
+    - **Descrição:** Inicia um container que está parado, reativando sua execução a partir do estado em que foi interrompido.  
+    - **Uso:** Utilizado quando um container previamente criado e parado precisa ser reiniciado sem precisar criar um novo container.  
+    - **Exemplo:**  
+      ```bash
+      docker start appweblist-1
+      ```
+      ou
+      ```bash
+      docker start f8d601dac46f
+      ```
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-5.2'></a>
 5.2. **`docker stop <container_id|container_name>`**  
@@ -198,6 +218,7 @@
       ```bash
       docker stop appweblist-1
       ```
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -216,6 +237,7 @@
       ```bash
       docker rm app_container:v1.0.0
       ```
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-6.2'></a>
 6.2 **`docker rm -f <container_id|container_name>`**  
@@ -229,6 +251,7 @@
       ```bash
       docker rm -f app_container:v1.0.0
       ```
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -248,6 +271,7 @@
        ```bash
        docker cp 0921363f0510:/home/rprojetos/app/test.txt .
        ```  
+    [retornar para o menu](#container-menu)
 
 <hr>
 
@@ -262,24 +286,27 @@
      ```bash
      docker volume create appweblist-1-dados
      ```
-
+  [retornar para o menu](#container-menu)
+  
 <a id='cmd-docker-8.2'></a>
 8.2 Criando um volume que utilize um caminho específico no host utilizando o driver local com opções de bind mount.
 
     **Sintax:** `docker volume create --driver local --opt type=none --opt device=/caminho/especifico/no/host --opt o=bind meu_volume`
     **Exemplo**:
-```bash
-docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/dados appweblistdocker:v1.0.0
-```
+    ```bash
+    docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/dados appweblistdocker:v1.0.0
+    ```
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-8.3'></a>
 8.3 **`docker volume ls`**  
-- **Descrição:** Lista todos os volumes gerenciados pela Docker Engine.  
-- **Uso:** Exibe os volumes existentes no ambiente, mostrando informações como o nome do volume e o driver utilizado.  
-- **Exemplo:**  
-  ```bash
-  docker volume ls
-  ```
+    - **Descrição:** Lista todos os volumes gerenciados pela Docker Engine.  
+    - **Uso:** Exibe os volumes existentes no ambiente, mostrando informações como o nome do volume e o driver utilizado.  
+    - **Exemplo:**  
+      ```bash
+      docker volume ls
+      ```
+    [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-8.4'></a>
 8.4 **`docker volume inspect <nome_do_volume>`**  
@@ -289,6 +316,7 @@ docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/
      ```bash
      docker volume inspect appweblist-1-dados
      ```
+  [retornar para o menu](#container-menu)
 
 <a id='cmd-docker-8.5'></a>
 8.5 **`docker run -d -p <hostPort:containerPort> --name <container> -v <volume-docker>:<mapeamento-volume-dentro-container> <IMAGE_ID|REPOSITORY:TAG>`**  
@@ -299,10 +327,21 @@ docker run -d -p 3000:3000 --name appweblist-v1 -v vol_data:/home/rprojetos/app/
      ```bash
      docker run -d -p 3000:3000 --name appweblist-v1 -v appweblist-1-dados:/home/rprojetos/app/dados appweblistdocker:v1.0.0
      ```
+  [retornar para o menu](#container-menu)
 
+<hr><hr>
+
+<a id='notas'></a>
+## Anotações Gerais
+
+## [Anotações Gerais](#notas)
+
+<hr>
+
+<a id='notas-volumes'></a>
 **Observações sobre volumes:**
 
-Paro containers que foram criados a partir de uma imagem que utiliza usuário `não root` temos que dar acesso total para esse usuário dentro do diretório correspondente `/home/user`, para que este tenha acesso ao volume que foi criado/mapeado.
+Para containers que foram criados a partir de uma imagem que utiliza usuário `não root` temos que dar acesso total para esse usuário dentro do diretório correspondente `/home/user`, para que este tenha acesso ao volume que foi criado/mapeado.
 1. Inicie uma nova sessão do terminal como root 
 ```docker exec -it -u root <container_id|container_name> sh```
 2. Dê permissão total para o usuário
@@ -318,6 +357,11 @@ chown -R user:user /home/user
      ```bash
      chown -R rprojetos:rprojetos /home/rprojetos
      ```
+[retornar para o menu](#container-menu)
+
+<hr>
+
+<a id='notas-acessos'></a>
 **Controle de acessos:**
 
 Caso também seja necessário ajustar as permissões (permitindo leitura, escrita e execução para o proprietário), você pode usar:
@@ -328,8 +372,12 @@ chmod -R 700 /home/user
 Atenção: [Não recomendado] O comando ~~chmod -R 777~~ dá acesso total a todos usuários:
 ~~chmod -R 777 /home/user~~
 
+[retornar para o menu](#container-menu)
 
-**Outros comandos uteis:**
+<hr>
+
+<a id='notas-Comandos-uteis'></a>
+**Comandos uteis:**
 
 Verificar o usuário corrente, você pode utilizar o comando:
 > `whoami`
@@ -339,6 +387,11 @@ Criar um arquivo com determinado conteudo:
 
 Verificar o conteúdo do arquivo:
 > `cat docker.txt`
+
+[retornar para o menu](#container-menu)
+
+<br>
+<br>
 
 
 
