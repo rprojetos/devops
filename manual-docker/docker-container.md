@@ -8,7 +8,6 @@
 
 1.2 [**`docker ps -a`**](#cmd-docker-1.2)
 
-
 [****2.Criar e iniciar o container****](#cmd-docker-2)
 
 2.1 [**`docker run -it appweblistdocker:v1.0.0 sh`**](#cmd-docker-2.1)
