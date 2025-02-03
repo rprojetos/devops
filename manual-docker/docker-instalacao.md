@@ -47,7 +47,7 @@
 
 3. #### Verificando a instalação:
 
-    > docker compose version
+    > docker-compose version
 
 # Gerenciamento de Containers
 
